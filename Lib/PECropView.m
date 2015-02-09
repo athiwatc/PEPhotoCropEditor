@@ -7,7 +7,6 @@
 //
 
 #import "PECropView.h"
-#import "PECropRectView.h"
 #import "UIImage+PECrop.h"
 
 static const CGFloat MarginTop = 37.0f;
@@ -19,9 +18,7 @@ static const CGFloat MarginRight = MarginLeft;
 
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic) UIView *zoomingView;
-@property (nonatomic) UIImageView *imageView;
 
-@property (nonatomic) PECropRectView *cropRectView;
 @property (nonatomic) UIView *topOverlayView;
 @property (nonatomic) UIView *leftOverlayView;
 @property (nonatomic) UIView *rightOverlayView;
@@ -116,6 +113,11 @@ static const CGFloat MarginRight = MarginLeft;
     if (CGRectContainsPoint(self.zoomingView.frame, zoomedPoint)) {
         return self.scrollView;
     }
+    
+    
+    
+    
+    NSLog(@"sdfsdf");
     
     return [super hitTest:point withEvent:event];
 }
@@ -460,8 +462,8 @@ static const CGFloat MarginRight = MarginLeft;
                                  scaledHeight);
     
     CGRect zoomRect = [self convertRect:toRect toView:self.zoomingView];
-    zoomRect.size.width = CGRectGetWidth(cropRect) / (self.scrollView.zoomScale * scale);
-    zoomRect.size.height = CGRectGetHeight(cropRect) / (self.scrollView.zoomScale * scale);
+    zoomRect.size.width = CGRectGetWidth(cropRect) / (self.scrollView.zoomScale * 1);
+    zoomRect.size.height = CGRectGetHeight(cropRect) / (self.scrollView.zoomScale * 1);
     
     if(center) {
         CGRect imageViewBounds = self.imageView.bounds;

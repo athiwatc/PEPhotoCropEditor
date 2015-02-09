@@ -8,6 +8,7 @@
 
 #import "PECropViewController.h"
 #import "PECropView.h"
+#import "QuartzCore/QuartzCore.h"
 
 @interface PECropViewController () <UIActionSheetDelegate>
 
@@ -52,6 +53,8 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 {
     [super viewDidLoad];
     
+    [UIApplication sharedApplication].statusBarHidden = YES;
+    
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.toolbar.translucent = NO;
 
@@ -63,18 +66,55 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
                                                                                            action:@selector(done:)];
 
     if (!self.toolbarItems) {
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                                       target:nil
-                                                                                       action:nil];
-        UIBarButtonItem *constrainButton = [[UIBarButtonItem alloc] initWithTitle:PELocalizedString(@"Constrain", nil)
-                                                                            style:UIBarButtonItemStyleBordered
-                                                                           target:self
-                                                                           action:@selector(constrain:)];
-        self.toolbarItems = @[flexibleSpace, constrainButton, flexibleSpace];
+        
+        [self.navigationController toolbar].barStyle = UIBarStyleBlack;
+        
+        [self.navigationController toolbar].tintColor = [UIColor whiteColor];
+        
+        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        
+        UIBarButtonItem *constrain34Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_threefour_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio34:)];
+        
+        UIBarButtonItem *constrain11Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_oneone_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio11:)];
+        
+        UIBarButtonItem *constrain43Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_threefour_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio43:)];
+        
+        self.toolbarItems = @[flexibleSpace, constrain43Button, flexibleSpace, constrain11Button, flexibleSpace, constrain34Button, flexibleSpace];
     }
+    
+    for (UIView *view in self.actionSheet.subviews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            UIButton *button = (UIButton *)view;
+            [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            
+        }
+    }
+    
+    self.actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    
     self.navigationController.toolbarHidden = self.toolbarHidden;
     
     self.cropView.image = self.image;
+}
+
+-(void)ratio34:(UIButton *)sender
+{
+    self.cropView.cropAspectRatio = 3.0f / 4.0f;
+}
+
+-(void)ratio11:(UIButton *)sender
+{
+    self.cropView.cropAspectRatio = 1.0f;
+}
+
+-(void)ratio43:(UIButton *)sender
+{
+    self.cropView.cropAspectRatio = 4.0f / 3.0f;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [UIApplication sharedApplication].statusBarHidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,6 +132,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
     }
     
     self.keepingCropAspectRatio = self.keepingCropAspectRatio;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -170,15 +211,19 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)constrain:(id)sender
 {
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                   delegate:self
-                                          cancelButtonTitle:PELocalizedString(@"Cancel", nil)
-                                     destructiveButtonTitle:nil
-                                          otherButtonTitles:
-                        PELocalizedString(@"Square", nil),
-                        PELocalizedString(@"4 x 3", nil),
-                        PELocalizedString(@"3 x 4", nil), nil];
-    [self.actionSheet showFromToolbar:self.navigationController.toolbar];
+//    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+//                                                   delegate:self
+//                                          cancelButtonTitle:PELocalizedString(@"Cancel", nil)
+//                                     destructiveButtonTitle:nil
+//                                          otherButtonTitles:
+//                        PELocalizedString(@"Square", nil),
+//                        PELocalizedString(@"4 x 3", nil),
+//                        PELocalizedString(@"3 x 4", nil), nil];
+//    
+//    
+//    self.actionSheet.backgroundColor = [UIColor blackColor];
+//    
+//    [self.actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
 #pragma mark -

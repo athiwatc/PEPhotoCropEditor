@@ -52,6 +52,10 @@
         if ([self.delegate respondsToSelector:@selector(resizeControlViewDidEndResizing:)]) {
             [self.delegate resizeControlViewDidEndResizing:self];
         }
+        
+        
+        
+        NSLog(@"resized end");
     }
 }
 

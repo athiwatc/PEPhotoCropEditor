@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "PECropRectView.h"
+
 @interface PECropView : UIView
 
 @property (nonatomic) UIImage *image;
@@ -25,6 +27,10 @@
 @property (nonatomic) CGRect imageCropRect;
 
 @property (nonatomic) CGFloat rotationAngle;
+
+@property (nonatomic) PECropRectView *cropRectView;
+
+@property (nonatomic) UIImageView *imageView;
 
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;
