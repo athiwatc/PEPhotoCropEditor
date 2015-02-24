@@ -57,14 +57,14 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
     
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.toolbar.translucent = NO;
-
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                           target:self
                                                                                           action:@selector(cancel:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                            target:self
                                                                                            action:@selector(done:)];
-
+    
     if (!self.toolbarItems) {
         
         [self.navigationController toolbar].barStyle = UIBarStyleBlack;
@@ -77,7 +77,7 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
         
         UIBarButtonItem *constrain11Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_oneone_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio11:)];
         
-        UIBarButtonItem *constrain43Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_threefour_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio43:)];
+        UIBarButtonItem *constrain43Button = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"PEPhotoCropEditor.bundle/icon_02crop_fourthree_active"] style:UIBarButtonItemStylePlain target:self action:@selector(ratio43:)];
         
         self.toolbarItems = @[flexibleSpace, constrain43Button, flexibleSpace, constrain11Button, flexibleSpace, constrain34Button, flexibleSpace];
     }
@@ -211,40 +211,40 @@ static inline NSString *PELocalizedString(NSString *key, NSString *comment)
 
 - (void)constrain:(id)sender
 {
-//    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-//                                                   delegate:self
-//                                          cancelButtonTitle:PELocalizedString(@"Cancel", nil)
-//                                     destructiveButtonTitle:nil
-//                                          otherButtonTitles:
-//                        PELocalizedString(@"Square", nil),
-//                        PELocalizedString(@"4 x 3", nil),
-//                        PELocalizedString(@"3 x 4", nil), nil];
-//    
-//    
-//    self.actionSheet.backgroundColor = [UIColor blackColor];
-//    
-//    [self.actionSheet showFromToolbar:self.navigationController.toolbar];
+    //    self.actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+    //                                                   delegate:self
+    //                                          cancelButtonTitle:PELocalizedString(@"Cancel", nil)
+    //                                     destructiveButtonTitle:nil
+    //                                          otherButtonTitles:
+    //                        PELocalizedString(@"Square", nil),
+    //                        PELocalizedString(@"4 x 3", nil),
+    //                        PELocalizedString(@"3 x 4", nil), nil];
+    //
+    //
+    //    self.actionSheet.backgroundColor = [UIColor blackColor];
+    //
+    //    [self.actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
 #pragma mark -
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-   /* if (buttonIndex == 0) {
-        CGRect cropRect = self.cropView.cropRect;
-        CGSize size = self.cropView.image.size;
-        CGFloat width = size.width;
-        CGFloat height = size.height;
-        CGFloat ratio;
-        if (width < height) {
-            ratio = width / height;
-            cropRect.size = CGSizeMake(CGRectGetHeight(cropRect) * ratio, CGRectGetHeight(cropRect));
-        } else {
-            ratio = height / width;
-            cropRect.size = CGSizeMake(CGRectGetWidth(cropRect), CGRectGetWidth(cropRect) * ratio);
-        }
-        self.cropView.cropRect = cropRect;
-    } else */
+    /* if (buttonIndex == 0) {
+     CGRect cropRect = self.cropView.cropRect;
+     CGSize size = self.cropView.image.size;
+     CGFloat width = size.width;
+     CGFloat height = size.height;
+     CGFloat ratio;
+     if (width < height) {
+     ratio = width / height;
+     cropRect.size = CGSizeMake(CGRectGetHeight(cropRect) * ratio, CGRectGetHeight(cropRect));
+     } else {
+     ratio = height / width;
+     cropRect.size = CGSizeMake(CGRectGetWidth(cropRect), CGRectGetWidth(cropRect) * ratio);
+     }
+     self.cropView.cropRect = cropRect;
+     } else */
     if (buttonIndex == 0) {
         self.cropView.cropAspectRatio = 1.0f;
     } else if (buttonIndex == 1) {
